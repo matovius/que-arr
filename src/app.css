@@ -1,0 +1,321 @@
+@layer variables, reset, base, components, utilities;
+
+@layer variables {
+	:root {
+		/* === TYPOGRAPHY === */
+		/* Font families */
+		--font-sys:
+			system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+			'Open Sans', 'Helvetica Neue', sans-serif;
+		--font-radio: 'Radio Canada Big Variable', var(--font-sys);
+		/* Typescale */
+		--text-sm: clamp(0.8rem, 0.17vi + 0.76rem, 0.89rem);
+		--text-base: clamp(1rem, 0.34vi + 0.91rem, 1.19rem);
+		--text-md: clamp(1.25rem, 0.61vi + 1.1rem, 1.58rem);
+		--text-lg: clamp(1.56rem, 1vi + 1.31rem, 2.11rem);
+		--text-xl: clamp(1.95rem, 1.56vi + 1.56rem, 2.81rem);
+		--text-xxl: clamp(2.44rem, 2.38vi + 1.85rem, 3.75rem);
+		--text-xxxl: clamp(3.05rem, 3.54vi + 2.17rem, 5rem);
+		/* === COLORS === */
+		/* Base colors */
+		--color-white: #ffffff;
+		--color-black: #000000;
+		/* Full Spectrum Blue */
+		--color-spectra-blue: #0f51f5;
+		/* Color palettes */
+		/* Neutral */
+		--color-neutral-50: color-mix(in oklab, var(--color-white), var(--color-black) 5%);
+		--color-neutral-100: color-mix(in oklab, var(--color-white), var(--color-black) 10%);
+		--color-neutral-200: color-mix(in oklab, var(--color-white), var(--color-black) 20%);
+		--color-neutral-300: color-mix(in oklab, var(--color-white), var(--color-black) 30%);
+		--color-neutral-400: color-mix(in oklab, var(--color-white), var(--color-black) 40%);
+		--color-neutral-500: color-mix(in oklab, var(--color-white), var(--color-black) 50%);
+		--color-neutral-600: color-mix(in oklab, var(--color-white), var(--color-black) 60%);
+		--color-neutral-700: color-mix(in oklab, var(--color-white), var(--color-black) 70%);
+		--color-neutral-800: color-mix(in oklab, var(--color-white), var(--color-black) 80%);
+		--color-neutral-900: color-mix(in oklab, var(--color-white), var(--color-black) 90%);
+		--color-neutral-950: color-mix(in oklab, var(--color-white), var(--color-black) 95%);
+		/* Primary */
+		--color-primary-50: color-mix(in oklab, var(--color-spectra-blue), var(--color-white) 90%);
+		--color-primary-100: color-mix(in oklab, var(--color-spectra-blue), var(--color-white) 80%);
+		--color-primary-200: color-mix(in oklab, var(--color-spectra-blue), var(--color-white) 60%);
+		--color-primary-300: color-mix(in oklab, var(--color-spectra-blue), var(--color-white) 40%);
+		--color-primary-400: color-mix(in oklab, var(--color-spectra-blue), var(--color-white) 20%);
+		--color-primary-500: color-mix(in oklab, var(--color-spectra-blue), var(--color-white) 0%);
+		--color-primary-600: color-mix(in oklab, var(--color-spectra-blue), var(--color-black) 20%);
+		--color-primary-700: color-mix(in oklab, var(--color-spectra-blue), var(--color-black) 40%);
+		--color-primary-800: color-mix(in oklab, var(--color-spectra-blue), var(--color-black) 60%);
+		--color-primary-900: color-mix(in oklab, var(--color-spectra-blue), var(--color-black) 80%);
+		--color-primary-950: color-mix(in oklab, var(--color-spectra-blue), var(--color-black) 90%);
+		/* Utility colors */
+		--color-ink: var(--color-neutral-800);
+		--color-bg: var(--color-white);
+		--color-selection-ink: var(--color-white);
+		--color-selection-bg: var(--color-black);
+	}
+}
+
+@layer reset {
+	/* Box sizing rules */
+	*,
+	*::before,
+	*::after {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+		scroll-margin-block: 5ex;
+
+		/* Anything that has been anchored to should have extra scroll margin */
+		&:target {
+			scroll-margin-block: 5ex;
+		}
+	}
+
+	html {
+		/* Set baseline for text behavior */
+		font-family: var(--font-system);
+		hanging-punctuation: first allow-end last;
+		word-break: break-word;
+		/* Prevent font size inflation */
+		-moz-text-size-adjust: none;
+		-webkit-text-size-adjust: none;
+		text-size-adjust: none;
+		/* Use antialiasing and optimize text legibility */
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+
+	/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+	ul[role='list'],
+	ol[role='list'] {
+		list-style: none;
+	}
+
+	/* Set core body defaults */
+	body {
+		min-height: 100vh;
+		line-height: 1.5;
+
+		/* Anything that has been anchored to should have extra scroll margin */
+		& *:target {
+			scroll-margin-block: 5ex;
+		}
+	}
+
+	/* Balance text wrapping on headings */
+	h1,
+	h2,
+	h3,
+	h4 {
+		text-wrap: balance;
+	}
+
+	h5,
+	h6 {
+		text-wrap: pretty;
+	}
+
+	/* A elements that don't have a class get default styles */
+	a:not([class]) {
+		text-decoration-skip-ink: auto;
+		color: currentColor;
+	}
+
+	/* Make media content easier to work with */
+	img,
+	figure,
+	picture,
+	video,
+	canvas,
+	svg {
+		display: block;
+		max-width: 100%;
+	}
+
+	/* Inherit fonts for inputs and buttons */
+	input,
+	button,
+	textarea,
+	select {
+		font: inherit;
+	}
+
+	/* Make sure textareas without a rows attribute are not tiny */
+	textarea:not([rows]) {
+		min-height: 10em;
+	}
+
+	/* Anything that has been anchored to should have extra scroll margin */
+	:target {
+		scroll-margin-block: 5ex;
+	}
+
+	/* Add overflow-wrap to all major text pieces */
+	p,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		overflow-wrap: break-word;
+	}
+}
+
+@layer base {
+	*,
+	*::before,
+	*::after {
+		transition: all 200ms ease;
+
+		&:not(:defined) {
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		&::selection {
+			background: var(--color-selection-bg);
+			color: var(--color-selection-ink);
+		}
+	}
+
+	body {
+		font-family: var(--font-radio);
+		line-height: 1.5;
+		color: var(--color-ink);
+		background-color: var(--color-bg);
+
+		&:has(dialog[open]) {
+			overflow: hidden;
+		}
+	}
+
+	h1,
+	h2 {
+		font-weight: 700;
+		line-height: 1.1;
+	}
+
+	h3,
+	h4 {
+		font-weight: 700;
+		line-height: 1.25;
+	}
+
+	h5,
+	h6 {
+		font-weight: 700;
+		line-height: 1.4;
+	}
+
+	h1 {
+		font-size: var(--text-xxxl);
+	}
+
+	h2 {
+		font-size: var(--text-xxl);
+	}
+
+	h3 {
+		font-size: var(--text-xl);
+	}
+
+	h4 {
+		font-size: var(--text-lg);
+	}
+
+	h5 {
+		font-size: var(--text-md);
+	}
+
+	h6 {
+		font-size: var(--text-base);
+	}
+
+	p {
+		font-size: var(--text-base);
+	}
+
+	small {
+		font-size: var(--text-sm);
+		font-weight: 500;
+	}
+
+	span {
+		font: inherit;
+	}
+}
+
+@layer components {
+	.btn {
+		font-weight: 600;
+	}
+}
+
+@layer utilities {
+	.container {
+		width: 100%;
+		max-width: 75rem /* 1200px */;
+		margin-inline: auto;
+	}
+
+	.h1,
+	.h2 {
+		font-weight: 700;
+		line-height: 1.1;
+	}
+
+	.h3,
+	.h4 {
+		font-weight: 700;
+		line-height: 1.25;
+	}
+
+	.h5,
+	.h6 {
+		font-weight: 700;
+		line-height: 1.4;
+	}
+
+	.h1 {
+		font-size: var(--text-xxxl);
+	}
+
+	.h2 {
+		font-size: var(--text-xxl);
+	}
+
+	.h3 {
+		font-size: var(--text-xl);
+	}
+
+	.h4 {
+		font-size: var(--text-lg);
+	}
+
+	.h5 {
+		font-size: var(--text-md);
+	}
+
+	.h6 {
+		font-size: var(--text-base);
+	}
+
+	.p {
+		font-size: var(--text-base);
+	}
+
+	.small {
+		font-size: var(--text-sm);
+		font-weight: 500;
+	}
+
+	.icon {
+		width: 100%;
+		height: 100%;
+	}
+
+	.fix-z-index {
+		isolation: isolate;
+	}
+}
