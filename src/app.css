@@ -249,6 +249,26 @@
 @layer components {
 	.btn {
 		font-weight: 600;
+		padding-inline: 40px;
+		padding-block: 20px;
+		border-radius: 20px;
+		border: 2px solid transparent;
+
+		&:disabled {
+			opacity: 0.5;
+			filter: grayscale(1);
+		}
+	}
+
+	.link {
+		color: inherit;
+		text-decoration: 2px solid underline var(--color-primary-500);
+		text-underline-offset: 3px;
+
+		&:is(:hover, :focus) {
+			color: var(--color-primary-500);
+			text-decoration-color: var(--color-black);
+		}
 	}
 }
 
