@@ -35,6 +35,6 @@
 	},
 	"dependencies": {
 		"@fontsource-variable/radio-canada-big": "^5.2.7",
-		"toqr": "^0.1.1"
+		"uqr": "^0.1.3"
 	}
 }
